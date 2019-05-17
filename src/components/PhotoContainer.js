@@ -18,6 +18,8 @@ const FlexContainer = styled.div`
 	flex-wrap: wrap;
 `;
 
+const ContentSmall = styled.div`max-width: 350px;`;
+
 const FeaturedImg = styled.img`max-width: 350px;`;
 
 class PhotoContainer extends React.Component {
@@ -40,10 +42,13 @@ class PhotoContainer extends React.Component {
 				<h1>NASA Photo of the Day</h1>
 				<FlexContainer>
 					{this.props.photoInfo && (
-						<div>
+						<ContentSmall>
+							<h1>{this.props.photoInfo.title}</h1>
 							<p>{moment(this.props.photoInfo.date).format('MMM Do YYYY')}</p>
 							<FeaturedImg src={this.props.photoInfo.url} alt={this.props.photoInfo.title} />
-						</div>
+
+							<p>{this.props.photoInfo.explanation}</p>
+						</ContentSmall>
 					)}
 					{this.props.error && (
 						<p>
