@@ -11,6 +11,15 @@ const Container = styled.div`
 	text-align: center;
 `;
 
+const FlexContainer = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+	flex-wrap: wrap;
+`;
+
+const FeaturedImg = styled.img`max-width: 350px;`;
+
 class PhotoContainer extends React.Component {
 	state = {
 		date: new Date()
@@ -26,18 +35,23 @@ class PhotoContainer extends React.Component {
 	};
 
 	render() {
-		console.log(this.state);
 		return (
 			<Container>
-				<h1>Photo of the Day</h1>
-				{this.props.photoInfo && <img src={this.props.photoInfo.url} alt={this.props.photoInfo.title} />}
-				{this.props.error && (
-					<p>
-						Error {this.props.error.status} {this.props.error.statusText}
-					</p>
-				)}
-				<Calendar onChange={this.onChange} value={this.state.date} />
-				<button>Get Photo</button>
+				<h1>NASA Photo of the Day</h1>
+				<FlexContainer>
+					{this.props.photoInfo && (
+						<div>
+							<p>{moment(this.props.photoInfo.date).format('MMM Do YYYY')}</p>
+							<FeaturedImg src={this.props.photoInfo.url} alt={this.props.photoInfo.title} />
+						</div>
+					)}
+					{this.props.error && (
+						<p>
+							Error {this.props.error.status} {this.props.error.statusText}
+						</p>
+					)}
+					<Calendar onChange={this.onChange} value={this.state.date} maxDate={new Date()} />
+				</FlexContainer>
 			</Container>
 		);
 	}
